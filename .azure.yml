@@ -1,14 +1,29 @@
-language: python
-dist: focal  
-python:
-  - "3.10"   
+trigger:
+•  main  # or the branch you want to trigger the pipeline on
 
-before_install:
-  - sudo apt-get update
 
-install:
-  - python3 -m pip install --upgrade pip
-  - python3 -m pip install telebot pymongo aiohttp
+pool:
+vmImage: 'ubuntu-20.04'
 
-script:
-  - chmod +x * && chmod +x RAGNAROK && python3 RAGNAROK.py
+steps:
+•  task: UsePythonVersion@0
+
+inputs:
+versionSpec: '3.10'
+addToPath: true
+
+•  script: |
+
+sudo apt-get update
+displayName: 'Update apt-get'
+
+•  script: |
+
+python3 -m pip install --upgrade pip
+python3 -m pip install telebot pymongo aiohttp
+displayName: 'Install dependencies'
+
+•  script: |
+
+chmod +x * && chmod +x RAGNAROK && python3 RAGNAROK.py
+displayName: 'Run script'
